@@ -1,4 +1,5 @@
 const http = require('http');
+
 const port = process.env.PORT || 5001;
 
 // http://localhost:5001/welcome should return a status code 200 with a welcome message of your choice in html format
@@ -24,26 +25,63 @@ const server = http.createServer((req, res) => {
     'other',
   ];
 
-  let getRoutes = () => {
+  const getRoutes = () => {
     let result = '';
 
     routes.forEach(
-      (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
+      (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`),
     );
 
     return result;
   };
 
   if (req.url === '/') {
-    let routeResults = getRoutes();
+    const routeResults = getRoutes();
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(`<h1>Exercise 01</h1>`);
+    res.write('<h1>Exercise 01</h1>');
     res.write(`<ul> ${routeResults} </ul>`);
     res.end();
+  } else if (req.url === '/welcome') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('<h1>Welcome to Homework 3 exercise 1</h1>');
+    res.end();
+  } else if (req.url === '/redirect') {
+    res.writeHead(302, { location: '/redirected' });
+    res.end();
+  } else if (req.url === '/redirected') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('<h1>You have been redirected</h1>');
+    res.end();
+  } else if (req.url === '/cache') {
+    res.writeHead(200, {
+      'Content-Type': 'text/plain',
+      'Cache-Control': 'max-age=<86400>',
+    });
+    res.write('This resource was cached');
+    res.end();
+  } else if (req.url === '/cookie') {
+    res.writeHead(200, {
+      'Content-Type': 'text/plain',
+      'Set-Cookie': 'hello=world',
+    });
+    res.write('cookies... yummmm');
+    res.end();
+  } else if (req.url === '/check-cookies') {
+    let print = false;
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    let cookies = req.headers.cookie;
+    cookies = cookies.split(';');
+    cookies.forEach((i) => {
+      if (i === ' hello=world') { print = true; }
+    });
+    const toPrint = print ? res.write('Yes') : res.write('No');
+    res.end();
+  } else {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('<h1>404 Page not found</h1>');
+    res.end();
   }
-
-  // Add your code here
 });
 
 server.listen(port, () => {
