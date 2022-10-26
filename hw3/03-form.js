@@ -7,6 +7,7 @@ const port = process.env.PORT || 5001;
 
 // http://localhost:5001/submit should return all the data the user entered
 
+// HTML form to be used for route /form
 const postHTML = `<html><head></head><body>
   <form method='post' accept-charset=utf-8>
   <label for="name">Name: </label>
@@ -33,7 +34,7 @@ const server = http.createServer((req, res) => {
       res.end(postHTML);
     });
     res.write(`${postHTML}`);
-  } else if (req.url === '/submit') {
+  } else if (req.url === '/submit') { // Route for submit takes data submitted from form and displays it to this route.
     res.writeHead(200, { 'Content-Type': 'text/html' });
     const newData = new URLSearchParams(body);
     const parsedData = newData.values();

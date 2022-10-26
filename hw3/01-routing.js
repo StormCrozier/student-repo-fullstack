@@ -42,32 +42,32 @@ const server = http.createServer((req, res) => {
     res.write('<h1>Exercise 01</h1>');
     res.write(`<ul> ${routeResults} </ul>`);
     res.end();
-  } else if (req.url === '/welcome') {
+  } else if (req.url === '/welcome') { // Route for welcome page
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write('<h1>Welcome to Homework 3 exercise 1</h1>');
     res.end();
-  } else if (req.url === '/redirect') {
+  } else if (req.url === '/redirect') { // Route for redirect
     res.writeHead(302, { location: '/redirected' });
     res.end();
-  } else if (req.url === '/redirected') {
+  } else if (req.url === '/redirected') { // Route for redirected page
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write('<h1>You have been redirected</h1>');
     res.end();
-  } else if (req.url === '/cache') {
+  } else if (req.url === '/cache') { // Route for cache page
     res.writeHead(200, {
       'Content-Type': 'text/plain',
       'Cache-Control': 'max-age=<86400>',
     });
     res.write('This resource was cached');
     res.end();
-  } else if (req.url === '/cookie') {
+  } else if (req.url === '/cookie') { // Route for cookie page, sets a cookie
     res.writeHead(200, {
       'Content-Type': 'text/plain',
       'Set-Cookie': 'hello=world',
     });
     res.write('cookies... yummmm');
     res.end();
-  } else if (req.url === '/check-cookies') {
+  } else if (req.url === '/check-cookies') { // Route for check-cookies
     let print = false;
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     let cookies = req.headers.cookie;
@@ -75,10 +75,10 @@ const server = http.createServer((req, res) => {
     cookies.forEach((i) => {
       if (i === ' hello=world') { print = true; }
     });
-    const toPrint = print ? res.write('Yes') : res.write('No');
+    const toPrint = print ? res.write('Yes') : res.write('No'); // Prints yes or no based on cookies
     res.end();
   } else {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.writeHead(404, { 'Content-Type': 'text/html' }); // Handles anyother route
     res.write('<h1>404 Page not found</h1>');
     res.end();
   }
