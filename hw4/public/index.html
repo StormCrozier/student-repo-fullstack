@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form Exercise</title>
-  </head>
-  <body>
-    <!-- Add your code here -->
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Exercise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <form method="post" action="/submit" class="bg-light border rounded w-50 mx-auto mt-5 p-3">
+    <h1 class="mt-2 mb-4">Contact Form</h1>
+    <div class="form-group">
+      <label for="nameInput" class="mb-1" required>Name *</label>
+      <input type="text" class="form-control" id="nameInput" name="name" onkeyup="enableSubmit()" required>
+    </div>
+    <div class="form-group">
+      <label for="emailInput" class="mb-1 mt-1" required>Email *</label>
+      <input type="email" class="form-control" id="emailInput" name="email" onkeyup="enableSubmit()" required>
+    </div>
+    <div class="form-group mt-2">
+      <label for="textInput">Submit your message:</label>
+      <textarea class="form-contorl w-100 mt-1" id="textInput" name='message' rows="3"></textarea>
+    </div>
+    <div class="form-check mt-1">
+      <label for="newsLetterInput">Sign up for the newsletter</label>
+      <input type="checkbox" class="form-check-input" id="newsLetterInput" name="news">
+    </div>
+    <div class="form-group text-center p-2 d-flex justify-content-around">
+      <div class="btn-group col-6 p-1">
+        <button disabled id='sub' type="submit" class="btn btn-primary mt-1">Submit</button>
+      </div>
+      <div class="btn-group col-6 p-1">
+        <button type="reset" class="btn btn-secondary mt-1">Reset</button>
+      </div>
+  </form>
+</body>
+<script>
+  const enableSubmit = () => {
+  const user = document.getElementById('nameInput').value;
+  const email = document.getElementById('emailInput').value;
+  const but = document.getElementById('sub');
+
+  let valid = true;
+
+  if (user.trim() === '' || user === null) {
+    valid = false;
+  } else if (email.trim() === '' || email === null) {
+    valid = false;
+  }
+
+  but.disabled = !valid;
+};
+</script>
 </html>
