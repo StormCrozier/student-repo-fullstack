@@ -15,22 +15,10 @@ app.use(
   })
 );
 
-const postHTML = `<html><head></head><body>
-  <form method='post' action='/submit' accept-charset=utf-8>
-  <label for="name">Name: </label>
-  <input type="text" name="name" id="name"><br />
-  <label for="email">Email: </label>
-  <input type="text" name="email" id="email"><br />
-  <label for="textInput">Submit your message</label>
-  <textarea type="text" name="textInput"id="textInput"></textarea><br />
-  <label for=newsLetterInput>Sign up for the newsletter</label>
-  <input type=checkbox name="newsLetterInpu" id=newsLetterInput><br />
-  <input type='submit'>
-  </form></body></html>`;
+
 
 app.get('/form', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/index.html'));
-  //res.write(postHTML);
   res.end()
 });
 
